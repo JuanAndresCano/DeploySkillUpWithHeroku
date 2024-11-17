@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 import django_heroku
 
+
 from pathlib import Path
 import os
 from django.utils.translation import gettext_lazy as _
@@ -131,7 +132,7 @@ DATABASES = {
         'NAME':'d61d80kip6fpjb',
         'USER': 'ud46cdr106ntkc',
         'PASSWORD': 'pf6fa986cb7bad9cada11350005c41ae60eba134cee4c4f4056c17e0136b2c288',
-        'HOST': 'cb5ajfjosdpmil.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com',
+        'HOST': 'c2ihhcf1divl18.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com',
         'PORT': '5432'
     }
 }
