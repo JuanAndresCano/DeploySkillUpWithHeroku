@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 import django_heroku
+import dj_database_url
 from pathlib import Path
 import os
 from django.utils.translation import gettext_lazy as _
@@ -31,13 +32,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 #SECRET_KEY = 'django-insecure-q!2!$#=r4_kp1x+kqrd&i@s&vgxfk&-qtg@smruqc$e5x&13fh'
-SECRET_KEY = os.getenv('SECRET_KEY')
+# SECRET_KEY
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-q!2!$#=r4_kp1x+kqrd&i@s&vgxfk&-qtg@smruqc$e5x&13fh')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 
-ALLOWED_HOSTS = ['skillupproject.herokuapp.com', 'localhost']
+# Configuración de ALLOWED_HOSTS
+ALLOWED_HOSTS = ['skillupproject.herokuapp.com', 'localhost', '127.0.0.1', '.herokuapp.com']
 
 
 
@@ -132,10 +135,17 @@ DATABASES = {
     }
 }
 '''
-
-import dj_database_url
+#DATABASES = {
+#    'default': dj_database_url.config(default=os.getenv('postgres://ud46cdr106ntkc:pf6fa986cb7bad9cada11350005c41ae60eba134cee4c4f4056c17e0136b2c288@c2ihhcf1divl18.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d61d80kip6fpjb'))
+#}
+# DATABASE configuration
+DATABASE_URL = os.environ.get('postgres://ud46cdr106ntkc:pf6fa986cb7bad9cada11350005c41ae60eba134cee4c4f4056c17e0136b2c288@c2ihhcf1divl18.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d61d80kip6fpjb')
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('postgres://ud46cdr106ntkc:pf6fa986cb7bad9cada11350005c41ae60eba134cee4c4f4056c17e0136b2c288@c2ihhcf1divl18.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d61d80kip6fpjb'))
+    'default': dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 
@@ -186,14 +196,12 @@ LOCALE_PATHS = (
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = "/static/"
-django_heroku.settings(locals())
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+django_heroku.settings(locals())
 
 # Media files (Uploaded by users)
 MEDIA_URL = '/media/'  # URL pública para los archivos subidos
