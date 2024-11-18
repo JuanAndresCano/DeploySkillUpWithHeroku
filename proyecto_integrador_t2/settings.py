@@ -120,6 +120,7 @@ DATABASES = {
     }
 }
 '''
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -129,6 +130,12 @@ DATABASES = {
         'HOST': 'c2ihhcf1divl18.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com',
         'PORT': '5432'
     }
+}
+'''
+
+import dj_database_url
+DATABASES = {
+    'default': dj_database_url.config(default=os.getenv('postgres://ud46cdr106ntkc:pf6fa986cb7bad9cada11350005c41ae60eba134cee4c4f4056c17e0136b2c288@c2ihhcf1divl18.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d61d80kip6fpjb'))
 }
 
 
