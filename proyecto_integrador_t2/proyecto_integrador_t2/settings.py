@@ -39,7 +39,7 @@ SECRET_KEY = 'django-insecure-q!2!$#=r4_kp1x+kqrd&i@s&vgxfk&-qtg@smruqc$e5x&13fh
 DEBUG = False
 
 
-ALLOWED_HOSTS = ['skillupproject.herokuapp.com']
+ALLOWED_HOSTS = ['skillupproject.herokuapp.com', 'localhost']
 
 
 
@@ -192,7 +192,7 @@ LOCALE_PATHS = (
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-#STATIC_URL = '/static/'
+STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = "/static/"
